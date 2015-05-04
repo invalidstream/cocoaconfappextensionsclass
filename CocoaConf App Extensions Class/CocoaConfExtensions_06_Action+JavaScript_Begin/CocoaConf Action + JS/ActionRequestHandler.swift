@@ -22,17 +22,17 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
         // Find the item containing the results from the JavaScript preprocessing.
         outer:
             for item: AnyObject in context.inputItems {
-                let extItem = item as NSExtensionItem
+                let extItem = item as! NSExtensionItem
                 if let attachments = extItem.attachments {
                     for itemProvider: AnyObject in attachments {
 						NSLog ("itemProvider: \(itemProvider)")
                         if itemProvider.hasItemConformingToTypeIdentifier(String(kUTTypePropertyList)) {
 							NSLog ("property list")
                             itemProvider.loadItemForTypeIdentifier(String(kUTTypePropertyList), options: nil, completionHandler: { (item, error) in
-                                let dictionary = item as [String: AnyObject]
+                                let dictionary = item as! [String: AnyObject]
 								NSLog ("dictionary \(dictionary)")
                                 NSOperationQueue.mainQueue().addOperationWithBlock {
-                                    self.itemLoadCompletedWithPreprocessingResults(dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as [NSObject: AnyObject])
+                                    self.itemLoadCompletedWithPreprocessingResults(dictionary[NSExtensionJavaScriptPreprocessingResultsKey] as! [NSObject: AnyObject])
                                 }
                                 // found = true // apple bug
                             })
@@ -58,7 +58,7 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
         // current background color style, if there is one. We will construct a
         // dictionary to send back with a desired new background color style.
         let bgColor: AnyObject? = javaScriptPreprocessingResults["currentBackgroundColor"]
-        if bgColor == nil ||  bgColor! as String == "" {
+        if bgColor == nil ||  bgColor! as! String == "" {
             // No specific background color? Request setting the background to red.
             self.doneWithResults(["newBackgroundColor": "red"])
         } else {

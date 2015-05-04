@@ -19,7 +19,7 @@ class KeyboardViewController: UIInputViewController, UICollectionViewDataSource,
         // The app has just changed the document's contents, the document context has been updated.
     
         var textColor: UIColor
-        var proxy = self.textDocumentProxy as UITextDocumentProxy
+        var proxy = self.textDocumentProxy as! UITextDocumentProxy
         if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
             textColor = UIColor.whiteColor()
         } else {
@@ -48,8 +48,8 @@ class KeyboardViewController: UIInputViewController, UICollectionViewDataSource,
 	}
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("KeyCell", forIndexPath: indexPath) as UICollectionViewCell
-		let button = cell.viewWithTag(1000) as UIButton
+		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("KeyCell", forIndexPath: indexPath) as! UICollectionViewCell
+		let button = cell.viewWithTag(1000) as! UIButton
 		button.setTitle(keys[indexPath.row], forState: .Normal)
 		return cell
 	}

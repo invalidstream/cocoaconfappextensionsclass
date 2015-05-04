@@ -32,7 +32,7 @@ class ViewController: UIViewController, UITableViewDataSource {
 	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("TableCell") as UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("TableCell") as! UITableViewCell
 		let conf = cocoaConf2015Events[indexPath.row]
 		cell.textLabel?.text = "\(conf.cityName): \(conf.relativeTime().rawValue)"
 		return cell
