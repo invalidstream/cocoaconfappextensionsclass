@@ -711,6 +711,7 @@
 		013D9E211AC2F82A002BF36B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = "Subsequently & Furthermore, Inc.";
 				TargetAttributes = {
@@ -1478,6 +1479,7 @@
 				013D9EEC1AC32B82002BF36B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

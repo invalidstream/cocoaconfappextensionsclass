@@ -18,28 +18,41 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 		
 		let confs = cocoaConf2015Events
 		var previousLabel : UILabel? = nil
-		for (index, conf) in enumerate (confs) {
+		for (index, conf) in confs.enumerate() {
 			let label = UILabel ()
-			label.setTranslatesAutoresizingMaskIntoConstraints(false)
+			label.translatesAutoresizingMaskIntoConstraints = false
 			label.text =  "\(conf.cityName): \(conf.relativeTime().rawValue)"
 			label.textColor = UIColor.whiteColor()
 			self.view?.addSubview(label)
-			let xConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-5-[label]-5-|", options: nil, metrics: nil, views: ["label" : label])
+            let xConstraints = NSLayoutConstraint.constraintsWithVisualFormat("|-5-[label]-5-|",
+                options: [] as NSLayoutFormatOptions,
+                metrics: nil,
+                views: ["label" : label])
 			self.view.addConstraints(xConstraints)
-			var yConstraints : [AnyObject]? = nil
+			var yConstraints : [NSLayoutConstraint]? = nil
 			if index == 0 {
 				// first row
-				yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[label]", options: nil, metrics: nil, views: ["label" : label])
+                yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[label]",
+                    options: [] as NSLayoutFormatOptions,
+                    metrics: nil,
+                    views: ["label" : label])
 			} else if index == confs.count - 1 {
 				// last row
-				yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[previousLabel]-[label]", options: nil, metrics: nil, views: ["previousLabel" : previousLabel!, "label" : label])
-				yConstraints?.extend(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-0-|", options: nil, metrics: nil, views: ["label" : label]))
+                yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[previousLabel]-[label]",
+                    options: [] as NSLayoutFormatOptions,
+                    metrics: nil,
+                    views: ["previousLabel" : previousLabel!, "label" : label])
+                yConstraints?.appendContentsOf(NSLayoutConstraint.constraintsWithVisualFormat("V:[label]-0-|",
+                    options: [] as NSLayoutFormatOptions,
+                    metrics: nil,
+                    views: ["label" : label]))
 				
 			} else {
 				// middle row
-				yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[previousLabel]-[label]",
-					options: nil, metrics: nil,
-					views: ["previousLabel" : previousLabel!, "label" : label])
+                yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[previousLabel]-[label]",
+                    options: [] as NSLayoutFormatOptions,
+                    metrics: nil,
+                    views: ["previousLabel" : previousLabel!, "label" : label])
 			}
 			self.view.addConstraints(yConstraints!)
 			previousLabel = label

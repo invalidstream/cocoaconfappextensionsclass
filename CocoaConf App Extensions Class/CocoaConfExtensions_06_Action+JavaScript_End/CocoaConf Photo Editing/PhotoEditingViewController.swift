@@ -35,17 +35,16 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     }
 
 	private func updateFilteredPreview() {
-		if var ciImage = CIImage(CGImage: input?.displaySizeImage.CGImage) {
-			imagePreview.image = UIImage (CIImage: applyPixellateFilterToCIImage (ciImage))
-		} else {
-			NSLog ("couldn't get CIImage")
-		}
+        if let displaySizeImage = input?.displaySizeImage, cgImage = displaySizeImage.CGImage {
+            let ciImage = CIImage(CGImage: cgImage)
+            imagePreview.image = UIImage (CIImage: applyPixellateFilterToCIImage (ciImage))
+        }
 	}
 
 	private func applyPixellateFilterToCIImage (ciImage: CIImage) -> CIImage {
 		pixellateFilter.setValue(NSNumber (float: pixellationScaleSlider.value), forKey: "inputScale")
 		pixellateFilter.setValue(ciImage, forKey: "inputImage")
-		return pixellateFilter.outputImage
+		return pixellateFilter.outputImage!
 	}
 
 	@IBAction func pixellationScaleSliderValueChanged(sender: AnyObject) {
@@ -76,31 +75,31 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         // Render and provide output on a background queue.
         dispatch_async(dispatch_get_global_queue(CLong(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)) {
             // Create editing output from the editing input.
-            let output = PHContentEditingOutput(contentEditingInput: self.input)
-            
-            // Provide new adjustments and render output to given location.
-            // output.adjustmentData = <#new adjustment data#>
-            // let renderedJPEGData = <#output JPEG#>
-            // renderedJPEGData.writeToURL(output.renderedContentURL, atomically: true)
-
-			let adjustmentDict = ["pixellateScale" : NSNumber(float: self.pixellationScaleSlider.value)]
-			let adjustmentData = PHAdjustmentData (formatIdentifier: "CocoaConfPixellator",
-				formatVersion: "1.0",
-				data: NSKeyedArchiver.archivedDataWithRootObject(adjustmentDict))
-			output.adjustmentData = adjustmentData
-			
-			let fullCIImage = CIImage (contentsOfURL: self.input!.fullSizeImageURL)
-			let fullFilteredImage = self.applyPixellateFilterToCIImage (fullCIImage)
-			
-			let myCIContext = CIContext (EAGLContext: EAGLContext (API: .OpenGLES2))
-			let myCGImage = myCIContext.createCGImage(fullFilteredImage, fromRect: fullFilteredImage.extent())
-			let myUIImage = UIImage(CGImage: myCGImage)
-			let fullFilteredJPEG = UIImageJPEGRepresentation (myUIImage, 1.0)
-			fullFilteredJPEG!.writeToURL(output.renderedContentURL, atomically: true)
-
-			
-            // Call completion handler to commit edit to Photos.
-            completionHandler?(output)
+            if let input = self.input, fullSizeImageURL = input.fullSizeImageURL {
+                let output = PHContentEditingOutput(contentEditingInput: input)
+                
+                // Provide new adjustments and render output to given location.
+                // output.adjustmentData = <#new adjustment data#>
+                // let renderedJPEGData = <#output JPEG#>
+                // renderedJPEGData.writeToURL(output.renderedContentURL, atomically: true)
+                
+                let adjustmentDict = ["pixellateScale" : NSNumber(float: self.pixellationScaleSlider.value)]
+                let adjustmentData = PHAdjustmentData (formatIdentifier: "CocoaConfPixellator",
+                    formatVersion: "1.0",
+                    data: NSKeyedArchiver.archivedDataWithRootObject(adjustmentDict))
+                output.adjustmentData = adjustmentData
+                
+                let fullCIImage = CIImage (contentsOfURL: fullSizeImageURL)
+                let fullFilteredImage = self.applyPixellateFilterToCIImage (fullCIImage!)
+                
+                let myCIContext = CIContext (EAGLContext: EAGLContext (API: .OpenGLES2))
+                let myCGImage = myCIContext.createCGImage(fullFilteredImage, fromRect: fullFilteredImage.extent)
+                let myUIImage = UIImage(CGImage: myCGImage)
+                let fullFilteredJPEG = UIImageJPEGRepresentation (myUIImage, 1.0)
+                fullFilteredJPEG!.writeToURL(output.renderedContentURL, atomically: true)
+                // Call completion handler to commit edit to Photos.
+                completionHandler?(output)
+            }
 			
             // Clean up temporary files, etc.
         }
