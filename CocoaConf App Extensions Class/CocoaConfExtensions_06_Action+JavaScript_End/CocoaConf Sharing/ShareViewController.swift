@@ -81,7 +81,6 @@ class ShareViewController: SLComposeServiceViewController {
 				dataTask.resume()
 			}
 		}
-		
 	}
 
 	

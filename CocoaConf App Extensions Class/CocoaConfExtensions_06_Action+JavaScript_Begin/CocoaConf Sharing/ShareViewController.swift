@@ -44,40 +44,44 @@ class ShareViewController: SLComposeServiceViewController {
         return []
     }
 
-	private func postURLItemProviderToHttpBin (itemProvider: NSItemProvider, shareText: String) {
-		NSLog ("loading")
-		itemProvider.loadItemForTypeIdentifier("public.url", options: nil) { (item, error) -> Void in
-			NSLog ("loaded")
-			if let shareURL = item as? NSURL {
-				let postURL = NSURL(string: "http://httpbin.org/post")
-				let postRequest = NSMutableURLRequest (URL: postURL!)
-				postRequest.HTTPMethod = "POST"
-				let postDict = NSMutableDictionary()
-				postDict.setValue(shareText, forKey: "shareText")
-				postDict.setValue(shareURL.description, forKey: "shareURL")
-				var error : NSError?
-				let postData = NSJSONSerialization.dataWithJSONObject (postDict as NSDictionary, options: NSJSONWritingOptions.PrettyPrinted, error: &error)
-				postRequest.HTTPBody = postData
-				
-				let postURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-				let dataTask = postURLSession.dataTaskWithRequest(postRequest, completionHandler: { (data, response, error) -> Void in
-					let contents = NSString (data: data, encoding: NSUTF8StringEncoding)
-					NSLog ("response \(response), contents \(contents)")
-					var statusCode = -1
-					if let httpResponse = response as? NSHTTPURLResponse {
-						statusCode = httpResponse.statusCode
-					}
-					let alert = UIAlertController (title: "Response", message: "Status \(statusCode)", preferredStyle: .Alert)
-					alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
-						self.extensionContext!.completeRequestReturningItems([], completionHandler: nil)
-					}))
-					self.presentViewController(alert, animated: true, completion: nil)
-				})
-				dataTask.resume()
-			}
-		}
-		
-	}
+    private func postURLItemProviderToHttpBin (itemProvider: NSItemProvider, shareText: String) {
+        NSLog ("loading")
+        itemProvider.loadItemForTypeIdentifier("public.url", options: nil) { (item, error) -> Void in
+            NSLog ("loaded")
+            if let shareURL = item as? NSURL {
+                let postURL = NSURL(string: "https://httpbin.org/post")
+                let postRequest = NSMutableURLRequest (URL: postURL!)
+                postRequest.HTTPMethod = "POST"
+                let postDict = NSMutableDictionary()
+                postDict.setValue(shareText, forKey: "shareText")
+                postDict.setValue(shareURL.description, forKey: "shareURL")
+                do {
+                    let postData = try NSJSONSerialization.dataWithJSONObject (postDict as NSDictionary, options: NSJSONWritingOptions.PrettyPrinted)
+                    postRequest.HTTPBody = postData
+                } catch let error as NSError {
+                    NSLog ("JSON error: \(error)")
+                }
+                
+                let postURLSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+                let dataTask = postURLSession.dataTaskWithRequest(postRequest, completionHandler: { (data, response, error) -> Void in
+                    let contents = NSString (data: data!, encoding: NSUTF8StringEncoding)
+                    NSLog ("response \(response), contents \(contents)")
+                    var statusCode = -1
+                    if let httpResponse = response as? NSHTTPURLResponse {
+                        statusCode = httpResponse.statusCode
+                    }
+                    let alert = UIAlertController (title: "Response", message: "Status \(statusCode)", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: { (action) -> Void in
+                        self.extensionContext!.completeRequestReturningItems([], completionHandler: nil)
+                    }))
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    })
+                })
+                dataTask.resume()
+            }
+        }
+    }
 
 	
 }
