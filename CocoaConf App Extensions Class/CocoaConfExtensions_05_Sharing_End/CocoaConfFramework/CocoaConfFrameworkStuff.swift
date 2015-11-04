@@ -38,10 +38,10 @@ public extension CocoaConfEvent {
 public var cocoaConf2015Events: [CocoaConfEvent] = {
 	var formatter = NSDateFormatter()
 	formatter.dateFormat = "yyyy-MM-dd"
-	var chicago = CocoaConfEvent (cityName: "Chicago", startDate: formatter.dateFromString ("2015-03-26")!, endDate: formatter.dateFromString ("2015-03-29")!)
-	var dc = CocoaConfEvent (cityName: "DC", startDate: formatter.dateFromString ("2015-04-09")!, endDate: formatter.dateFromString ("2015-04-10")!)
-	var portland = CocoaConfEvent (cityName: "Portland", startDate: formatter.dateFromString ("2015-05-07")!, endDate: formatter.dateFromString ("2015-05-10")!)
-	var austin = CocoaConfEvent (cityName: "Austin", startDate: formatter.dateFromString ("2015-05-21")!, endDate: formatter.dateFromString ("2015-05-24")!)
-	return [chicago, dc, portland, austin]
+    var boston = CocoaConfEvent (cityName: "Boston", startDate: formatter.dateFromString ("2015-09-17")!, endDate: formatter.dateFromString ("2015-09-19")!)
+    var sanjose = CocoaConfEvent (cityName: "San Jose", startDate: formatter.dateFromString ("2015-11-05")!, endDate: formatter.dateFromString ("2015-11-07")!)
+    var chicago = CocoaConfEvent (cityName: "Chicago", startDate: formatter.dateFromString ("2016-03-24")!, endDate: formatter.dateFromString ("2016-03-26")!)
+	return [boston, sanjose, chicago]
 	}()
+
 

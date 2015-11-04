@@ -24,9 +24,7 @@ class KeyboardViewController: UIInputViewController, UICollectionViewDataSource,
 	}
 	
 	@IBAction func handleKeyPress(sender: UIButton) {
-		if let keyInputProxy = textDocumentProxy as? UIKeyInput {
-			keyInputProxy.insertText(sender.titleLabel!.text!)
-		}
+        textDocumentProxy.insertText(sender.titleLabel!.text!)
 	}
 	
 	// MARK: collection view data source

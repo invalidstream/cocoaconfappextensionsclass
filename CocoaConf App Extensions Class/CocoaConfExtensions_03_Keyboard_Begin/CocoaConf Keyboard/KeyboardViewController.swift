@@ -17,17 +17,6 @@ class KeyboardViewController: UIInputViewController, UICollectionViewDataSource,
 		"ω", "ϊ", "ϋ", "ό", "ύ", "ώ"]
 
 
-    override func textDidChange(textInput: UITextInput) {
-        // The app has just changed the document's contents, the document context has been updated.
-    
-        var textColor: UIColor
-        var proxy = self.textDocumentProxy as! UITextDocumentProxy
-        if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.blackColor()
-        }
-    }
 	
 	// @IBAction func handleNextKeyboardButtonTapped(sender: AnyObject) {
     // TODO: WRITE IN CLASS

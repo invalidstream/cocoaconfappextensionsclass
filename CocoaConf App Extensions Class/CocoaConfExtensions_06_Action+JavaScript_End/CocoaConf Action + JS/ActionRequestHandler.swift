@@ -75,11 +75,11 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
             // These will be used as the arguments to the JavaScript finalize()
             // method.
             
-            var resultsDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: resultsForJavaScriptFinalize]
+            let resultsDictionary = [NSExtensionJavaScriptFinalizeArgumentKey: resultsForJavaScriptFinalize]
             
-            var resultsProvider = NSItemProvider(item: resultsDictionary, typeIdentifier: String(kUTTypePropertyList))
+            let resultsProvider = NSItemProvider(item: resultsDictionary, typeIdentifier: String(kUTTypePropertyList))
             
-            var resultsItem = NSExtensionItem()
+            let resultsItem = NSExtensionItem()
             resultsItem.attachments = [resultsProvider]
             
             // Signal that we're complete, returning our results.

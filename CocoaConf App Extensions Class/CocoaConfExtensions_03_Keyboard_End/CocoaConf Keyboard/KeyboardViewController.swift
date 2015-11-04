@@ -15,26 +15,13 @@ class KeyboardViewController: UIInputViewController, UICollectionViewDataSource,
 		"ω", "ϊ", "ϋ", "ό", "ύ", "ώ"]
 
 
-    override func textDidChange(textInput: UITextInput) {
-        // The app has just changed the document's contents, the document context has been updated.
-    
-        var textColor: UIColor
-        var proxy = self.textDocumentProxy as! UITextDocumentProxy
-        if proxy.keyboardAppearance == UIKeyboardAppearance.Dark {
-            textColor = UIColor.whiteColor()
-        } else {
-            textColor = UIColor.blackColor()
-        }
-    }
 	
 	@IBAction func handleNextKeyboardButtonTapped(sender: AnyObject) {
 		self.advanceToNextInputMode()
 	}
 	
 	@IBAction func handleKeyPress(sender: UIButton) {
-		if let keyInputProxy = textDocumentProxy as? UIKeyInput {
-			keyInputProxy.insertText(sender.titleLabel!.text!)
-		}
+        textDocumentProxy.insertText(sender.titleLabel!.text!)
 	}
 	
 	// MARK: collection view data source
@@ -48,7 +35,7 @@ class KeyboardViewController: UIInputViewController, UICollectionViewDataSource,
 	}
 	
 	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("KeyCell", forIndexPath: indexPath) as! UICollectionViewCell
+		let cell = collectionView.dequeueReusableCellWithReuseIdentifier("KeyCell", forIndexPath: indexPath) as UICollectionViewCell
 		let button = cell.viewWithTag(1000) as! UIButton
 		button.setTitle(keys[indexPath.row], forState: .Normal)
 		return cell
