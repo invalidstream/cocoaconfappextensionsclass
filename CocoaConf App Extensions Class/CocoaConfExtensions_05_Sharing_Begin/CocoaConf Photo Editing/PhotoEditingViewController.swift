@@ -35,8 +35,9 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
     }
 
 	private func updateFilteredPreview() {
-		if var ciImage = CIImage(CGImage: input?.displaySizeImage.CGImage) {
-			imagePreview.image = UIImage (CIImage: applyPixellateFilterToCIImage (ciImage))
+		if let cgImage = input?.displaySizeImage?.CGImage  {
+		let ciImage = CIImage(CGImage: cgImage)
+        imagePreview.image = UIImage (CIImage: applyPixellateFilterToCIImage (ciImage))
 		} else {
 			NSLog ("couldn't get CIImage")
 		}
@@ -45,7 +46,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
 	private func applyPixellateFilterToCIImage (ciImage: CIImage) -> CIImage {
 		pixellateFilter.setValue(NSNumber (float: pixellationScaleSlider.value), forKey: "inputScale")
 		pixellateFilter.setValue(ciImage, forKey: "inputImage")
-		return pixellateFilter.outputImage
+		return pixellateFilter.outputImage ?? ciImage
 	}
 
 	@IBAction func pixellationScaleSliderValueChanged(sender: AnyObject) {

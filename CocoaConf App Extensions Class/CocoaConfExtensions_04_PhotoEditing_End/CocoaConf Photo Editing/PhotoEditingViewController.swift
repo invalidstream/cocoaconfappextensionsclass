@@ -59,7 +59,7 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         // Render and provide output on a background queue.
         dispatch_async(dispatch_get_global_queue(CLong(DISPATCH_QUEUE_PRIORITY_DEFAULT), 0)) {
             // Create editing output from the editing input.
-            let output = PHContentEditingOutput(contentEditingInput: self.input)
+            let output = PHContentEditingOutput(contentEditingInput: self.input!)
             
             // Provide new adjustments and render output to given location.
             // output.adjustmentData = <#new adjustment data#>
