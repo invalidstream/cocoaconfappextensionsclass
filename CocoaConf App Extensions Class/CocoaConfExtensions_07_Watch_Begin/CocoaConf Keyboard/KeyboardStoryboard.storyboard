@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8w8-n5-Y3o">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--Keyboard View Controller-->
+        <scene sceneID="16q-PA-smw">
+            <objects>
+                <viewController id="8w8-n5-Y3o" customClass="KeyboardViewController" customModule="CocoaConf_Keyboard" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eLJ-Ey-QUW"/>
+                        <viewControllerLayoutGuide type="bottom" id="9A6-DC-J5J"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vwZ-Q7-6Nh">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="200"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LDJ-dg-oc9">
+                                <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                <animations/>
+                                <color key="barTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="CocoaConf Keyboard" id="yYK-Ng-5DI">
+                                        <barButtonItem key="rightBarButtonItem" title="⌨" id="u31-6S-pEc">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="handleNextKeyboardButtonTapped:" destination="8w8-n5-Y3o" id="vKz-ZX-CXZ"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kkv-Az-S3h">
+                                <rect key="frame" x="0.0" y="44" width="300" height="156"/>
+                                <animations/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="wh2-T7-wXe">
+                                    <size key="itemSize" width="40" height="40"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyCell" id="tj1-F8-Hxj">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ym1-Be-faO">
+                                                    <rect key="frame" x="5" y="-4" width="30" height="48"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                    <state key="normal" title="A">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="handleKeyPress:" destination="8w8-n5-Y3o" eventType="touchUpInside" id="WQU-JF-qTk"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="centerX" secondItem="Ym1-Be-faO" secondAttribute="centerX" id="iYq-dQ-N4U"/>
+                                            <constraint firstAttribute="centerY" secondItem="Ym1-Be-faO" secondAttribute="centerY" id="tGc-XA-Fjc"/>
+                                        </constraints>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="8w8-n5-Y3o" id="Ge1-SW-ujm"/>
+                                    <outlet property="delegate" destination="8w8-n5-Y3o" id="Yhi-vv-yAg"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="kkv-Az-S3h" firstAttribute="leading" secondItem="vwZ-Q7-6Nh" secondAttribute="leading" id="6rq-Ej-OTP"/>
+                            <constraint firstAttribute="bottom" secondItem="kkv-Az-S3h" secondAttribute="bottom" id="86p-QY-jvI"/>
+                            <constraint firstItem="kkv-Az-S3h" firstAttribute="top" secondItem="LDJ-dg-oc9" secondAttribute="bottom" id="MD3-bv-WY4"/>
+                            <constraint firstAttribute="trailing" secondItem="kkv-Az-S3h" secondAttribute="trailing" id="NTe-jm-98r"/>
+                            <constraint firstItem="LDJ-dg-oc9" firstAttribute="leading" secondItem="vwZ-Q7-6Nh" secondAttribute="leading" id="Qfu-TY-lTW"/>
+                            <constraint firstItem="LDJ-dg-oc9" firstAttribute="top" secondItem="eLJ-Ey-QUW" secondAttribute="bottom" id="tXh-yA-ma3"/>
+                            <constraint firstAttribute="trailing" secondItem="LDJ-dg-oc9" secondAttribute="trailing" id="vEw-4C-OvP"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="300" height="200"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dDF-oC-5Bh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="592" y="331"/>
+        </scene>
+    </scenes>
+</document>
