@@ -29,7 +29,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
 			var yConstraints : [NSLayoutConstraint]? = nil
 			if index == 0 {
 				// first row
-				yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[label]", options: [], metrics: nil, views: ["label" : label])
+				yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:|[label]", options: [], metrics: nil, views: ["label" : label])
 			} else if index == confs.count - 1 {
 				// last row
 				yConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[previousLabel]-[label]", options: [], metrics: nil, views: ["previousLabel" : previousLabel!, "label" : label])

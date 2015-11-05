@@ -24,7 +24,7 @@ class ShareViewController: SLComposeServiceViewController {
 				for attachment in extensionItem.attachments! {
 					if let itemProvider = attachment as? NSItemProvider {
 						if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
-							self.postURLItemProviderToHttpBin (itemProvider, shareText: extensionItem.attributedContentText!.string)
+							self.postURLItemProviderToHttpBin (itemProvider, shareText: contentText)
 						} else {
 							self.extensionContext!.completeRequestReturningItems([], completionHandler: nil)
 						}

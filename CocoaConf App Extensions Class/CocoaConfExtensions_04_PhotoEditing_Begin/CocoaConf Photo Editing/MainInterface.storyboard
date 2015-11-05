@@ -33,7 +33,7 @@
                                     <action selector="pixellationScaleSliderValueChanged:" destination="ObA-dk-sSI" eventType="valueChanged" id="ZdV-ca-jrs"/>
                                 </connections>
                             </slider>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IIb-vz-bIe">
+                            <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IIb-vz-bIe">
                                 <rect key="frame" x="16" y="87" width="288" height="288"/>
                                 <animations/>
                                 <constraints>

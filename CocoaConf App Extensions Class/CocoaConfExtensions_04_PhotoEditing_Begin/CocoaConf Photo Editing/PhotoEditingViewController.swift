@@ -67,7 +67,6 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
         // If you returned NO, the contentEditingInput has past edits "baked in".
         input = contentEditingInput
 
-		imagePreview.image = input?.displaySizeImage
 		updateFilteredPreview()
 }
 
@@ -105,7 +104,8 @@ class PhotoEditingViewController: UIViewController, PHContentEditingController {
             
             // Call completion handler to commit edit to Photos.
             completionHandler?(output)
-			
+			NSLog ("called completion handler")
+            
             // Clean up temporary files, etc.
         }
     }
